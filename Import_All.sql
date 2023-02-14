@@ -42,7 +42,7 @@ BEGIN
 
         goto iQuit
 
-        TmpDcitem:
+        TmpDcitem: --*Import CompleteDcitem
 		select 'TmpDcitem'
 
 		begin try
@@ -163,7 +163,7 @@ BEGIN
 
 			goto iQuit
         
-        TmpNotShipAllDC:
+        TmpNotShipAllDC: --*Import Notship
 		select 'TmpNotShipAllDC'
 
 	begin try
