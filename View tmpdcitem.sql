@@ -95,20 +95,20 @@ GO
       ,[RTR]
 	  ,a.[WH]
 	  ,case
-			When a.[WH] = 'DCAC' THEN 1
-			When a.[WH] = 'DCBB' THEN 2
-			When a.[WH] = 'DCMC' THEN 3
-			When a.[WH] = 'DCSB' THEN 4
-			When a.[WH] = 'RDCCB' THEN 5
-			When a.[WH] = 'RDCNS' THEN 6
-			When a.[WH] = 'RDCLP' THEN 7
-			When a.[WH] = 'RDCKK' THEN 8
-			When a.[WH] = 'RDCBR' THEN 9
-			When a.[WH] = 'RDCST' THEN 10
-			When a.[WH] = 'RDCHY' THEN 11
-			When a.[WH] = 'DC24S' THEN 12
-			When a.[WH] = 'ADC' THEN 13
-			When a.[WH] = 'DCeXta' THEN 14
+			WHEN a.[WH] = 'DCAC' THEN 1
+			WHEN a.[WH] = 'DCBB' THEN 2
+			WHEN a.[WH] = 'DCMC' THEN 3
+			WHEN a.[WH] = 'DCSB' THEN 4
+			WHEN a.[WH] = 'RDCCB' THEN 5
+			WHEN a.[WH] = 'RDCNS' THEN 6
+			WHEN a.[WH] = 'RDCLP' THEN 7
+			WHEN a.[WH] = 'RDCKK' THEN 8
+			WHEN a.[WH] = 'RDCBR' THEN 9
+			WHEN a.[WH] = 'RDCST' THEN 10
+			WHEN a.[WH] = 'RDCHY' THEN 11
+			WHEN a.[WH] = 'DC24S' THEN 12
+			WHEN a.[WH] = 'ADC' THEN 13
+			WHEN a.[WH] = 'DCeXta' THEN 14
 			WHEN a.[WH] = 'DCAIE' THEN 15
 		ELSE ''
 		END as [SortWH]
@@ -120,7 +120,7 @@ GO
 	  ,a.[Owner_Planner]
       ,[Planner_Hero]
 	  ,Case
-		When a.Owner_Planner = 'HERO' OR a.Owner_Planner = 'DC' THEN Planner_Hero
+		WHEN a.Owner_Planner = 'HERO' OR a.Owner_Planner = 'DC' THEN Planner_Hero
 		Else a.Owner_Planner
 		END AS [Owner]
 	  ,convert(float,[STD]) as [STD]
