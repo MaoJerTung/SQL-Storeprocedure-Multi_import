@@ -108,7 +108,9 @@ GO
 			When a.[WH] = 'RDCHY' THEN 11
 			When a.[WH] = 'DC24S' THEN 12
 			When a.[WH] = 'ADC' THEN 13
-		ELSE 'Null'
+			When a.[WH] = 'DCeXta' THEN 14
+			WHEN a.[WH] = 'DCAIE' THEN 15
+		ELSE ''
 		END as [SortWH]
       ,[DC_code]
       ,convert(float,[Inven_C2]) as [Inven_C2]
