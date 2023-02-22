@@ -40,6 +40,9 @@ BEGIN
         Select top(1) @iTypeTbl=col01, @iTypeTbl1=col02 from  [dbo].[Multi_iMport] where col01 ='' and left(col02,9) = 'STOCK DAY'
 		if @iTypeTbl ='' and left(@iTypeTbl1,9) = 'STOCK DAY' goto TmpDcitem_DCBB
 
+		Select top(1) @iTypeTbl=col02, @iTypeTbl1=col10 from [dbo].[Multi_iMport] where col02 = 'Product' OR col10 = 'ยอดขาย forecast / USC'
+		if @iTypeTbl = 'Product' OR @iTypeTbl1 = 'ยอดขาย forecast / USC' goto TmpPromotion_update
+
         goto iQuit
 
         TmpDcitem: --*Import CompleteDcitem
@@ -262,6 +265,39 @@ BEGIN
 			end catch
 
 
+		goto iQuit
+
+		TmpPromotion_update:
+		Select 'TmpPromotion_update'
+
+		begin try
+			IF @iTypeTbl = 'Product' AND @iTypeTbl1 = 'ยอดขาย forecast / USC' --Update from pro online
+			BEGIN
+				truncate table [testDB].[dbo].[Pro_Online]
+				INSERT INTO [testDB].[dbo].[Pro_Online]
+				([No.],[ITEM_ID],[Product_Name],[VENDOR_ID],[VENDOR_NAME],[Retail_Normal],[Retail_Promotion],[Theme],[จำนวนชิ้น/ชุด],[Forecast/USC],[Quota/USC],[Start_Date],[End_Date],[จำนวนโปร/รอบ],[Owner_BB],[Owner_SB],[PMA]
+      			 ,[dateimport])
+				SELECT col01,col02,col03,col04,col05,col06,col07,col08,col09,col10,col11,convert(date,col12,103),convert(date,col13,103),col14,col22,col23,col15
+				 ,convert(datetime,GETDATE())
+				FROM [testDB].[dbo].[Multi_iMport]
+				WHERE col02 <> N'Product'
+			END
+			ELSE
+			BEGIN
+				truncate table [testDB].[dbo].[Pro_Offline]
+				INSERT INTO [testDB].[dbo].[Pro_Offline]
+				([No.],[ITEM_ID],[Product_Name],[VENDOR_ID],[VENDOR_NAME],[Retail_Normal],[Retail_Promotion],[Theme],[Promotion_Index],[Start_Date],[End_Date],[จำนวนโปร/รอบ],[Owner_BB],[Owner_SB],[PMA],[RANK]
+				 ,[dateimport])
+				SELECT col01,col02,col03,col04,col05,col06,col07,col08,col09,convert(date,col10,103),convert(date,col11,103),col15,col17,col18,col19,col20
+				 ,convert(datetime,GETDATE())
+				FROM [testDB].[dbo].[Multi_iMport]
+				WHERE col02 <> N'Product'
+			END
+		End try
+		begin catch
+			select ERROR_MESSAGE() 
+		end catch
+		
 		goto iQuit
 
         iQuit:
