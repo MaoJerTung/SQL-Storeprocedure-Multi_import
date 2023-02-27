@@ -279,7 +279,7 @@ BEGIN
       			 ,[dateimport])
 				SELECT col01,col02,col03,col04,col05,col06,col07,col08,col09,col10,col11,convert(date,col12,103),convert(date,col13,103),col14,col22,col23,col15
 				 ,convert(datetime,GETDATE())
-				FROM [testDB].[dbo].[Multi_iMport]
+				FROM [testDB].[dbo].[Multi_iMport] with (nolock)
 				WHERE col02 <> N'Product'
 			END
 			ELSE
@@ -290,7 +290,7 @@ BEGIN
 				 ,[dateimport])
 				SELECT col01,col02,col03,col04,col05,col06,col07,col08,col09,convert(date,col10,103),convert(date,col11,103),col15,col17,col18,col19,col20
 				 ,convert(datetime,GETDATE())
-				FROM [testDB].[dbo].[Multi_iMport]
+				FROM [testDB].[dbo].[Multi_iMport] with (nolock)
 				WHERE col02 <> N'Product'
 			END
 		End try
